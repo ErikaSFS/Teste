@@ -1,5 +1,3 @@
-Criar um crud em php para localidades com nome, estado, cidade, latitude e longitude e imagem para o pin no mapa.
-
 
 <?php
 require_once 'tmaps.class.php';

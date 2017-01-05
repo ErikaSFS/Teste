@@ -1,0 +1,186 @@
+Criar um crud em php para localidades com nome, estado, cidade, latitude e longitude e imagem para o pin no mapa.
+
+
+<?php
+require_once 'tmaps.class.php';
+$tmaps = new tmaps;
+
+// Adiciona um marcador para nome informado
+$tmaps->addMarkerName( "Tiago");
+
+// Adiciona um marcador para Estado informado
+
+$tmaps->addMarkerEstado( "Ceará");
+
+// Adiciona um marcador para Cidade informado
+
+$tmaps->addMarkerCidade("Fortaleza");
+
+// Adiciona um marcador para LAT + LNG informados
+
+$tmaps->addMarker("-03.4302","-38.3235");
+
+// Retorna em JSon todos os marcadores
+
+$tmaps->getMarkers();
+
+?>
+
+<?php
+require_once 'tmaps.php';
+
+$tmaps = new tMaps;
+
+//cria novo icon/pin supondo que o arquivo esteja no diretorio icons
+
+$tmaps->addIcon( "kart", "icons/kart.png", "45", "45" );
+// Adiciona um marcador para Nome + Estado + Cidade + HTML + Icon
+
+$tmaps->addMarkerName( "Tiago","Ceará","Fortaleza", "Conteudo HTML, "kart");
+
+// Retorna em JSon todos os marcadores
+
+$tmaps->getMarkers();
+
+?>
+
+<?php
+
+require_once 'tmaps.class.php';
+$tmaps = new tMaps;
+
+//carrega o XML markers.xml
+
+$tmaps->loadFromXML("markers.xml");
+
+$tmaps->getMarkers();
+
+?>
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<markers>
+
+<marker latitude="-03.4302" longitude="-38.3235">
+
+ <icon name="casa" url="icons/casa.png" width="45" height="45" />
+
+ <html>
+
+ <![CDATA[<p>Casa Tiago</p><p><img src="<a class="vglnk" href="https://www.colourbox.com/preview/11904230-map-pin-with-home-icon-on-white-background.jpg" rel="nofollow"><span>http</span><span>://</span><span>tinyurl</span><span>.</span><span>com</span><span>/</span><span>897xozw</span></a>" width="60" height="60" /></p><p>R$ 4,50</p>]]>
+
+ </html>
+
+ </marker>
+
+<marker latitude="-03.7567" longitude="-03.8486">
+
+ <icon name="shopping" url="icons/shopping.png" width="45" height="45" />
+
+ <html>
+ <![CDATA[<p>Shopping Iguatemi</p>]]>
+
+ </html>
+ 
+ </marker>
+
+<marker latitude="-03.7691" longitude="-03.84819">
+
+ <icon name="Universidade" url="universidade/imovel.png" width="45" height="45" />
+
+ <html>
+ 
+ <![CDATA[<p>Universidade de Fortalezar</p>]]>
+ </html>
+ </marker>
+
+</markers>
+
+<!doctype html>
+<html>
+
+ <head>
+ <meta charset="iso-8859-1" />
+ <title>tMaps</title>
+
+ <link type="text/css" href="style.css" rel="stylesheet" />
+ <script type="text/javascript" src="jquery-1.6.1.min.js"></script>
+ <script type="text/javascript" src="jquery.gmap.min.js"></script>
+
+ </head>
+ <body>
+ <div id="wrap">
+
+ <div id="map">
+
+ <p class="loader"><img src="icons/loader.gif"/><br/>carregando locais, aguarde...</p>
+
+ </div>
+
+</div>
+ <script type="text/javascript" src="<a class="vglnk" href="http://maps.google.com/maps/api/js?sensor=false" rel="nofollow"><span>http</span><span>://</span><span>maps</span><span>.</span><span>google</span><span>.</span><span>com</span><span>/</span><span>maps</span><span>/</span><span>api</span><span>/</span><span>js</span><span>?</span><span>sensor</span><span>=</span><span>false</span></a>"></script>
+ <script type="text/javascript" src="gmap.load.js"></script>
+ </body>
+</html>
+
+<?php
+
+addIcon( "casa", "icons/casa.png", "45", "45" );
+
+$tmaps->addIcon( "shopping", "icons/shopping.png", "45", "45" );
+
+$tmaps->addIcon( "universidade", "icons/universidade.png", "45", "45" );
+
+// adicionar marcadores</pre>
+
+$tmaps->addMarkerAddress( "Avenida Aguanambi, 1056, Fortaleza, Ceará", "<p>Casa<br/><img src=<a class="vglnk" href="https://www.colourbox.com/preview/11904230-map-pin-with-home-icon-on-white-background.jpg" rel="nofollow"><span>http</span><span>://</span><span>tinyurl</span><span>.</span><span>com</span><span>/</span><span>897xozw</span></a> /></p>", "casa" );
+
+$tmaps->addMarkerAddress("Avenida Washington Soares, Fortaleza, Ceará", "<p>Shopping</p>", "Shopping" );
+
+$tmaps->addMarkerAddress(!Avenida Washington Soares, 1321, Fortaleza, Ceará", "<p>Universidade</p>", "universidade" );
+
+?>
+<?php
+require_once 'tmaps.class.php';
+
+$tmaps = new tMaps;
+$tmaps->addIcon( "casa", "icons/casa.png", "45", "45" );
+$tmaps->addMarkerEstado,Cidade,Longitude,Latitude( "Ceará","Fortaleza","-3.7318616","-38.52667");
+
+// recuperando a string e removendo os caracters [ e ]
+
+$strJson = preg_replace(array('/[/','/]/'),array('',''),$tmaps->getMarkers());
+
+
+
+//conexao com banco
+
+$query = mysql_query("insert into markers (str) values ("$strJson");
+
+ 
+//recuperando as strings
+
+$query = mysql_query("select * from markers");
+
+//montando a string completa com todos os marcadores do banco
+
+$markers = "[";
+
+while($row = mysql_fecth_object($query))
+
+{
+
+ //concatenando a string com resultados da consulta
+
+ //supondo que armazenou no campo str, a virgula é necessária após cada marcador
+ $markers .= "$row->str,";
+}
+
+//fechando json
+
+$markers = "]";
+
+//retornando a string montada a partir do banco
+echo $markers;
+
+?>
